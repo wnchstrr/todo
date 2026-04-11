@@ -4,9 +4,10 @@ from task import Task
 class TodoList:
     """Хранит список задач и управляет ими."""
 
-    def __init__(self):
+    def __init__(self, storage):
         """Инициализирует пустой список задач"""
-        self.tasks = []
+        self.storage = storage
+        self.tasks = self.storage.load()
 
     def add_task(self, text):
         """Добавляет новую задачу в список"""
@@ -24,3 +25,6 @@ class TodoList:
     def get_filtered_tasks(self, is_done):
         """Фильтрует задачи по статусу выполнения"""
         return [task for task in self.tasks if task.is_done == is_done]
+
+    def save(self):
+        self.storage.save(self.tasks)
