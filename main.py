@@ -21,17 +21,27 @@ def main():
             todo_list.save()
         elif answer == "2":
             show_tasks(todo_list.get_all_tasks())
-            index = int(input("Введите номер задачи: ")) - 1
-            todo_list.delete_task(index)
-            print("\nЗадача успешно удалена ✓")
-            todo_list.save()
+            try:
+                index = int(input("Введите номер задачи: ")) - 1
+                todo_list.delete_task(index)
+                print("\nЗадача успешно удалена ✓")
+                todo_list.save()
+            except ValueError:
+                print("\nОшибка: введите число!")
+            except IndexError:
+                print("\nОшибка: задачи с таким номером нет!")
         elif answer == "3":
-            show_tasks(todo_list.get_all_tasks())
-            index = int(input("Введите номер задачи: ")) - 1
-            task = todo_list.tasks[index]
-            task.mark_done()
-            print(f"«{task.text}» ✓\nЗадача выполнена")
-            todo_list.save()
+            try:
+                show_tasks(todo_list.get_all_tasks())
+                index = int(input("Введите номер задачи: ")) - 1
+                task = todo_list.tasks[index]
+                task.mark_done()
+                print(f"«{task.text}» ✓\nЗадача выполнена")
+                todo_list.save()
+            except ValueError:
+                print("\nОшибка: введите число")
+            except IndexError:
+                print("\nОшибка: задачи с таким номером нет")
         elif answer == "4":
             show_tasks(todo_list.tasks)
         elif answer == "5":
